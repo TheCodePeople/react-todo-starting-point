@@ -8,11 +8,12 @@ This repository serves as a learning resource for understanding the `useState` h
 3. Inside the `react-todo-starting-point` folder, run this command to install all the required dependencies: `npm install`.
 4. Run the React project using `npm run start`.
 5. Make sure everything is working as expected.
-6. Go to Notion to the todo app page for rendering the list.
+6. Go to Notion to the `Todo App` page for rendering the list.
 7. Follow the instructions and start working.
 
 #### Resources:
-[Built-in React Hooks](https://react.dev/reference/react/hooks)
+- [Built-in React Hooks](https://react.dev/reference/react/hooks)
+
 Happy Hacking! 😉
 
 
