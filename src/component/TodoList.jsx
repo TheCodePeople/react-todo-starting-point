@@ -38,11 +38,15 @@ function TodoList({todoData}){
         }
         setSelectedTodo(undefined)
     }
+    //cancel Function
+    const handleCancel=()=> setSelectedTodo(undefined)
+
     return <div>
         <input type="text" placeholder="add your todo" onChange={handleTextChange}></input>
         <button onClick={handleTodoCreate}>add</button>
         {todoList.map((todo) => (
-    <TodoItem  key ={todo.id} todo={todo} selectedTodo={selectedTodo} handleDelete={handleDelete} handleEdit={handleEdit} handleSave={handleSave}/>))}
+    <TodoItem  key ={todo.id} todo={todo} selectedTodo={selectedTodo} handleDelete={handleDelete} handleEdit={handleEdit} 
+    handleSave={handleSave} handleCancel={handleCancel}/>))}
     </div>;
 
 }
