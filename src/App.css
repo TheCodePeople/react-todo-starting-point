@@ -49,6 +49,12 @@ sub {
   color: rgb(237, 78, 78);
   transition: all 0.5s;
   cursor: pointer;
+  /* text-decoration: line-through; */
+}
+.title-container {
+  display: flex;
+  width: 400px;
+  gap: 20px;
 }
 
 .ph--trash:hover {

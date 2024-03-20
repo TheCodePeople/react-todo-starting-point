@@ -3,6 +3,7 @@ function TodoItem({ todo, handleDelete, handleSave }) {
   //useState
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(todo.title);
+  const [isComplete, setIsComplete] = useState(false);
 
   //handle Change Title
   const handleChangeTitle = (event) => {
@@ -15,18 +16,32 @@ function TodoItem({ todo, handleDelete, handleSave }) {
     setIsEditing(false);
   };
 
+  const handleComplete = () => {
+    setIsComplete(!isComplete);
+  };
   return (
     <div className="container">
-      {isEditing ? (
-        <input
-          className="newInput"
-          type="text"
-          value={newTitle}
-          onChange={handleChangeTitle}
-        />
-      ) : (
-        <p>{todo.title}</p>
-      )}
+      <div className="title-container">
+        <input type="checkbox" onClick={handleComplete} />
+        {isEditing ? (
+          <input
+            className="newInput"
+            type="text"
+            value={newTitle}
+            onChange={handleChangeTitle}
+          />
+        ) : (
+          <p
+            style={
+              isComplete
+                ? { textDecorationLine: "line-through" }
+                : { textDecorationLine: "none" }
+            }
+          >
+            {todo.title}
+          </p>
+        )}
+      </div>
 
       <div className="edit_container">
         {isEditing ? (
