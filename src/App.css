@@ -1,8 +1,6 @@
 :root {
-  --peach: #ffe6e6;
-  --pink: #e1afd1;
-  --lightPurple: #ad88c6;
-  --darkPurple: #7469b6;
+  --one: #8b84b2;
+  --two: #dfdef0;
 }
 
 * {
@@ -11,6 +9,7 @@
 
 .App {
   text-align: center;
+  background-color: var(--one);
 }
 
 .App-logo {
@@ -25,25 +24,143 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  color: white;
+  font-family: "Madimi One", sans-serif;
+  /* background-color: var(--one); */
+  background-color: rgba(0, 0, 0, 0.2);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+
+  /* color: white; */
 }
 
-.App-link {
-  color: #61dafb;
+.contenr {
+  border: 2px solid white;
+  width: 50%;
+  height: auto;
+  /* background-color: var(--two); */
+  background-image: repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.1),
+      transparent,
+      rgba(0, 0, 0, 0.04),
+      rgba(0, 0, 0, 0.04),
+      rgba(0, 0, 0, 0.01),
+      rgba(0, 0, 0, 0.02),
+      rgba(0, 0, 0, 0.05),
+      transparent,
+      rgba(0, 0, 0, 0.04),
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.03) 3px
+    ),
+    linear-gradient(0deg, rgb(85, 159, 230), rgb(230, 105, 196));
+  border-radius: 25px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.input-title {
+  font-family: "Madimi One", sans-serif;
+  width: 250px;
+  height: 35px;
+  border-radius: 15px;
+  margin: 10px;
+  border: 2px #818cf8 solid;
+  /* outline: none; */
+}
+
+.btn-add {
+  border: none;
+  outline: none;
+  background-color: #6c5ce7;
+  padding: 10px 20px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 5px;
+  transition: all ease 0.1s;
+  box-shadow: 0px 5px 0px 0px #a29bfe;
+  margin-left: 5px;
+}
+
+button:active {
+  transform: translateY(5px);
+  box-shadow: 0px 0px 0px 0px #a29bfe;
+}
+.items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 30px;
+  margin-left: 30px;
+}
+.items p {
+  width: 65%;
+  overflow-wrap: break-word;
+  text-align: start;
+  cursor: pointer;
+}
+.detels {
+  width: 20%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.red {
+  text-decoration: line-through;
+}
+#delete-img,
+#edit-img,
+#save-img {
+  width: 30px;
+}
+.hadar {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.search {
+  border-style: none;
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  outline: none;
+  border-radius: 50%;
+  transition: 0.5s ease-in-out;
+  background-color: #7e4fd4;
+  box-shadow: 0px 0px 3px #f3f3f3;
+  padding-right: 40px;
+  color: #fff;
+}
+
+.search::placeholder {
+  color: #8f8f8f;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: absolute;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  outline: none;
+  border-style: none;
+  border-radius: 50%;
+  pointer-events: painted;
+  background-color: transparent;
+  transition: 0.2s linear;
+}
+
+.icon:focus ~ .search,
+.search:focus {
+  box-shadow: none;
+  width: 250px;
+  border-radius: 0px;
+  background-color: transparent;
+  border-bottom: 3px solid #7e4fd4;
+  transition: all 500ms cubic-bezier(0, 0.11, 0.35, 2);
 }
