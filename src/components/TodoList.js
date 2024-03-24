@@ -3,6 +3,7 @@ import uuid4 from "uuid4";
 import TodoItem from "./TodoItem";
 import ListTabs from "./ListTabs";
 import Animation from "./Animation";
+import DropdownMenu from "./DropdownMenu";
 /////////////////////////////////////////////////////////////////////
 function TodoList() {
   const [todoList, setTodoList] = useState([]);
@@ -10,8 +11,20 @@ function TodoList() {
   const [decription, setDecription] = useState("");
   const [showCompleted, setShowCompleted] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
+  // const [assignedfor, setAssignedfor] = useState(null);
   let isChecked = null;
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
   //////////////////////////////////////////////////////////////////////////
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
   const toggleAnimation = () => {
     setShowAnimation(!showAnimation);
   };
@@ -31,6 +44,7 @@ function TodoList() {
     }
   }, []);
   const handelClick = (e) => {
+    setSelectedOption(null);
     if (newTodo.trim() === "") {
       return;
     }
@@ -39,6 +53,7 @@ function TodoList() {
       title: newTodo,
       details: decription,
       isComplete: false,
+      assignedto: selectedOption,
     };
     setTodoList((oldTodoList) => {
       const newArray = [...oldTodoList, newTodoObj];
@@ -75,7 +90,7 @@ function TodoList() {
   const handleShowAll = () => {
     setShowCompleted(null);
   };
-
+  console.log(todoList);
   const filteredTodos =
     showCompleted === false
       ? todoList.filter((todo) => !todo.isComplete)
@@ -114,6 +129,12 @@ function TodoList() {
           placeholder="What is the task description?"
           onChange={handelDescription}
           value={decription}
+        />
+        <DropdownMenu
+          isOpen={isOpen}
+          selectedOption={selectedOption}
+          toggleDropdown={toggleDropdown}
+          handleOptionClick={handleOptionClick}
         />
         <button
           className="bg-rose rounded-full h-12 w-12 self-end m-2 text-l font-bold text-center hover:scale-110 hover:transition-all	duration-500"

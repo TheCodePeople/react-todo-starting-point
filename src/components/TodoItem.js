@@ -62,10 +62,13 @@ function TodoItem({ todo, handleDelete, Edit, handleToggle, toggleAnimation }) {
           </div>
         </div>
       ) : (
-        <div className="ml-4 flex flex-col items-start w-full justify-center">
+        <div className="ml-4 flex flex-col items-start w-full justify-center gap-2">
           <div onClick={toggleAnimation}>{isChecked && <Animation />}</div>
-          <h3 className="text-rose font-4xl">{todo.title}</h3>
+          <h3 className="text-rose font-6xl">{todo.title}</h3>
           <p className="text-grey">{todo.details}</p>
+          <p className="text-xs text-lightgrey italic">
+            Assigned to: {todo.assignedto.label}
+          </p>
           <input
             className="self-end mr-6 mb-4  w-6 h-6 border border-violet-300 rounded-md checked:bg-violet checked:border-transparent focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet relative"
             type="checkbox"
