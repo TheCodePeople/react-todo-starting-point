@@ -2,7 +2,7 @@ const todoData = [
   {
     id: 1,
     title: "Go bungee jumping",
-    done: false,
+    done: true,
   },
   {
     id: 2,
@@ -17,12 +17,12 @@ const todoData = [
   {
     id: 4,
     title: "Write a book",
-    done: false,
+    done: true,
   },
   {
     id: 5,
     title: "Travel to every continent",
-    done: false,
+    done: true,
   },
   {
     id: 6,
