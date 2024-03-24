@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-
-function TodoItem({ todo, handleDelete, Edit, handleToggle }) {
+import trash from "../assets/trash.svg";
+import edit from "../assets/edit.svg";
+import Animation from "./Animation";
+function TodoItem({ todo, handleDelete, Edit, handleToggle, toggleAnimation }) {
   const [isEditing, setisEditing] = useState(false);
   const [todoTitle, setTodoTitel] = useState(todo.title);
   const [todoDescription, setTodoDescription] = useState(todo.details);
+  const [isChecked, setIsChecked] = useState(todo.isComplete);
   ///////////////////////////////////////////////////////////////
+
   const handelEdit = () => {
     setisEditing(true);
   };
@@ -27,33 +31,59 @@ function TodoItem({ todo, handleDelete, Edit, handleToggle }) {
   };
   /////////////////////////////////////////////////////////////////////////////////
   return (
-    <div className="bg-lightwhite p-2 w-full flex items-start justify-center rounded shadow-md">
+    <div className="w-full bg-lightwhite p-2 w-full flex items-start justify-center rounded shadow-md">
       {isEditing ? (
-        <div>
-          <input onChange={handelEditChange} type="text" value={todoTitle} />
+        <div className="flex flex-col gap-2 items-start w-full">
           <input
+            className="text-violet h-10 w-full p-1 rounded-full text-grey hover:brightness-95 hover:transition-all	duration-300"
+            onChange={handelEditChange}
+            type="text"
+            value={todoTitle}
+            placeholder="What is the task?"
+          />
+          <input
+            className="text-violet h-10 w-full p-1 rounded-full text-grey hover:brightness-95 hover:transition-all	duration-300"
             onChange={handelDescriptionChange}
             type="text"
             value={todoDescription}
+            placeholder="What is the description?"
           />
-          <sub onClick={handelSave}>Save</sub>
-          <sub onClick={() => handleDelete(todo.id)}>Delete</sub>
+          <div className="self-end flex justify-center aitems-center gap-6 p-4">
+            <button
+              className="text-sm bg-violet font-bold rounded-full p-2 text-white		"
+              onClick={handelSave}
+            >
+              Save
+            </button>
+            <sub onClick={() => handleDelete(todo.id)}>
+              {" "}
+              <img className="w-6" src={trash} alt="trash-icon" />
+            </sub>
+          </div>
         </div>
       ) : (
-        <div className="flex flex-col items-start w-full justify-center">
-          <h3 className="text-violet font-xl">{todo.title}</h3>
+        <div className="ml-4 flex flex-col items-start w-full justify-center">
+          <div onClick={toggleAnimation}>{isChecked && <Animation />}</div>
+          <h3 className="text-rose font-4xl">{todo.title}</h3>
           <p className="text-grey">{todo.details}</p>
           <input
-            className="self-end mr-6 mb-4 "
+            className="self-end mr-6 mb-4  w-6 h-6 border border-violet-300 rounded-md checked:bg-violet checked:border-transparent focus:outline-none focus:border-violet focus:ring-2 focus:ring-violet relative"
             type="checkbox"
-            checked={todo.isComplete}
-            onChange={() => handleToggle(todo.id)}
+            checked={isChecked}
+            onChange={() => {
+              handleToggle(todo.id);
+              setIsChecked(!isChecked);
+            }}
           />
 
-          <div className="self-end flex gap-4 p-4">
-            <sub onClick={handelEdit}>Edit</sub>
+          <div className="self-end flex aitems-center gap-6 p-4">
+            <sub onClick={handelEdit}>
+              <img className="w-6" src={edit} alt="React Logo" />
+            </sub>
 
-            <sub onClick={() => handleDelete(todo.id)}>Delete</sub>
+            <sub onClick={() => handleDelete(todo.id)}>
+              <img className="w-6" src={trash} alt="trash-icon" />
+            </sub>
           </div>
         </div>
       )}

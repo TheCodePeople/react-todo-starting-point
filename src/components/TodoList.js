@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import uuid4 from "uuid4";
 import TodoItem from "./TodoItem";
+import ListTabs from "./ListTabs";
+import Animation from "./Animation";
 /////////////////////////////////////////////////////////////////////
 function TodoList() {
   const [todoList, setTodoList] = useState([]);
   const [newTodo, setNewTodo] = useState("");
   const [decription, setDecription] = useState("");
   const [showCompleted, setShowCompleted] = useState(false);
-  //////////////////////////////////////////////////////////////////////
+  const [showAnimation, setShowAnimation] = useState(false);
+  let isChecked = null;
+  //////////////////////////////////////////////////////////////////////////
+  const toggleAnimation = () => {
+    setShowAnimation(!showAnimation);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -17,6 +24,12 @@ function TodoList() {
   const handelDescription = (e) => {
     setDecription(e.target.value);
   };
+  useEffect(() => {
+    let savedTodoList = JSON.parse(localStorage.getItem("todoList"));
+    if (savedTodoList) {
+      setTodoList(savedTodoList);
+    }
+  }, []);
   const handelClick = (e) => {
     if (newTodo.trim() === "") {
       return;
@@ -27,14 +40,23 @@ function TodoList() {
       details: decription,
       isComplete: false,
     };
-    setTodoList([...todoList, newTodoObj]);
+    setTodoList((oldTodoList) => {
+      const newArray = [...oldTodoList, newTodoObj];
+      localStorage.setItem("todoList", JSON.stringify(newArray));
+      return newArray;
+    });
     setNewTodo("");
     setDecription("");
   };
 
   const handleDelete = (todoId) => {
-    setTodoList(todoList.filter((todo) => todo.id !== todoId));
+    setTodoList((oldTodoList) => {
+      const oldArray = oldTodoList.filter((todo) => todo.id !== todoId);
+      localStorage.setItem("todoList", JSON.stringify(oldArray));
+      return oldArray;
+    });
   };
+
   const handleEdit = (updatedTodo) => {
     setTodoList((TodoList) =>
       TodoList.map((todoItem) =>
@@ -42,6 +64,7 @@ function TodoList() {
       )
     );
   };
+
   const handleToggle = (Id) => {
     setTodoList(
       todoList.map((todo) =>
@@ -62,7 +85,10 @@ function TodoList() {
   /////////////////////////////////////////////////////////////////////
   return (
     <div>
-      <span>Start your day with a plan!!</span>
+      {showAnimation && <Animation />}
+      <span className="text-violet font-semibold tracking-tight flex items-start text-3xl m-6">
+        Start Your Day with Plan!!
+      </span>
       <form
         className=" shadow-md flex items-start flex-col text-violet bg-darkwhite p-6  grow gap-2 w-90% m-2 mr-2 rounded-s "
         onSubmit={handleSubmit}
@@ -71,7 +97,7 @@ function TodoList() {
           Task
         </label>
         <input
-          className="h-10 w-full p-1 rounded-full text-grey hover:brightness-95 hover:transition-all	duration-300"
+          className=" h-10 w-full p-1 rounded-full text-grey hover:brightness-95 hover:transition-all	duration-300"
           id="todo"
           type="text"
           placeholder="What is the task for today?"
@@ -97,26 +123,10 @@ function TodoList() {
         </button>
       </form>
       {/* //////////////////////////////////////////////////////////////// */}
-      <div className="flex p-2">
-        <button
-          className="shadow-md bg-violet hover:brightness-75 hover:transition-all	duration-300 w-16 p-2 text-veryLight rounded-l	"
-          onClick={handleShowAll}
-        >
-          All
-        </button>
-        <button
-          className="shadow-md bg-violet hover:brightness-75 hover:transition-all	duration-300  w-auto p-2 text-veryLight"
-          onClick={() => setShowCompleted(false)}
-        >
-          Uncompleted
-        </button>
-        <button
-          className="shadow-md bg-violet hover:brightness-75 hover:transition-all	duration-300 w-auto p-2 text-veryLight pr-6 rounded-r"
-          onClick={() => setShowCompleted(true)}
-        >
-          Completed
-        </button>
-      </div>
+      <ListTabs
+        handleShowAll={handleShowAll}
+        setShowCompleted={setShowCompleted}
+      />
       <div className="flex p-2 flex-col items-start   gap-4">
         {filteredTodos.map((todo) => (
           <TodoItem
@@ -125,6 +135,8 @@ function TodoList() {
             handleDelete={handleDelete}
             Edit={handleEdit}
             handleToggle={handleToggle}
+            isChecked={isChecked}
+            toggleAnimation={toggleAnimation}
           />
         ))}
       </div>
