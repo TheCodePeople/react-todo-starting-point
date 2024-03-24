@@ -30,13 +30,12 @@ function TodoItem({ todoId, todo, handleDelete, handleEditList }) {
                     {todo.title}
                 </span>
             </div>
-            <button
-                type="button"
+            <sub
                 onClick={() => handleDelete(todoId)}
                 className="text-sm text-red-500 hover:underline"
             >
                 Delete
-            </button>
+            </sub>
             {taskView && (
                 <Task
                     todo={todo}

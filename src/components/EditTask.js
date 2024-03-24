@@ -24,7 +24,6 @@ function EditTask({ todo, setIsEditing, handleCancel, handleEditList }) {
             description: editedDescription ? editedDescription : "",
             done: todo.done
         };
-
         handleEditList(updatedTask);
         setIsEditing(false);
     }

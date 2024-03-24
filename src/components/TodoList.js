@@ -22,7 +22,9 @@ function TodoList({ todoData }) {
     };
 
     const handleDelete = (todoId) => {
+        console.log(todoId);
         const updatedList = todoList.filter((item) => item.id !== todoId);
+        console.log(updatedList);
         setTodoList(updatedList);
 
         if (listType === "Completed") {
@@ -93,6 +95,7 @@ function TodoList({ todoData }) {
                     filteredList.map((todo) => (
                         <TodoItem
                             key={todo.id}
+                            todoId={todo.id}
                             todo={todo}
                             handleDelete={handleDelete}
                             handleEditList={handleEditList}
