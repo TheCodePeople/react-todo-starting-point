@@ -17,7 +17,7 @@ const todoData = [
   {
     id: 4,
     title: "Write a book",
-    done: false,
+    done: true,
   },
   {
     id: 5,

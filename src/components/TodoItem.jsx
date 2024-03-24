@@ -4,6 +4,7 @@ import { useState } from "react";
 function TodoItem({ todo, handleDelete, handleEdit }) {
   const [editText, setEditText] = useState(false);
   const [newEditText, setNewEditText] = useState(todo.title);
+  const [done, setDone] = useState(todo.done);
   // copy text to Edit input
   function handlEdit(event) {
     setNewEditText(event.target.value);
@@ -12,6 +13,12 @@ function TodoItem({ todo, handleDelete, handleEdit }) {
   function Editing() {
     handleEdit(todo.id, newEditText);
     setEditText(false);
+  }
+  //############################ not completed
+  function handleDone() {
+    console.log("1", done);
+    setDone(!done);
+    console.log("2", done);
   }
 
   return (
@@ -24,7 +31,9 @@ function TodoItem({ todo, handleDelete, handleEdit }) {
           onChange={handlEdit}
         />
       ) : (
-        <p>{todo.title}</p>
+        <p className="" onClick={handleDone}>
+          {todo.title}
+        </p>
       )}
       <div className="detels">
         {editText ? (
