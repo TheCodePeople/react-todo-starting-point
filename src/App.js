@@ -1,12 +1,13 @@
+import React from "react";
 import "./App.css";
 // TODO: Import the todoData and pass it as a prop to the TodoList component
+import ToDoList from "./Components/ToDoList.js";
+import todoData from "./todoData.js";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        {/* Call the TodoList Component Here */}
-      </header>
+      <ToDoList todoData={todoData} />
     </div>
   );
 }

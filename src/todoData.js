@@ -6,7 +6,7 @@ const todoData = [
   },
   {
     id: 2,
-    title: "Go bungee jumping",
+    title: "Go Fishing",
     done: false,
   },
   {
